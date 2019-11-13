@@ -1,11 +1,11 @@
 package com.jetbrains;
 
-class ListObject{
+class ListNode {
     int value;
-    ListObject next;
-    ListObject previous;
+    ListNode next;
+    ListNode previous;
 
-    public ListObject(int value){
+    public ListNode(int value){
         this.value = value;
     }
 
@@ -14,21 +14,20 @@ class ListObject{
     }
 }
 
-public class MyList {
-    private ListObject first;
-    private ListObject last;
+public class CycleList {
+    private ListNode first;
+    private ListNode last;
     private int listLength;
 
-    public MyList(){
+    public CycleList(){
         first = null;
         last = null;
         listLength = 0;
     }
 
     public void addElement(int index, int value){
-        ListObject newElement = new ListObject(value);
+        ListNode newElement = new ListNode(value);
         index = getCorrectIndex(index, listLength);
-
         if(first == null) {
             first = newElement;
             last = newElement;
@@ -46,9 +45,8 @@ public class MyList {
                 newElement.previous = last;
                 first = newElement;
             }else if(listLength > index){
-                ListObject tmpPtr = first;
-                ListObject tmpPtrNext;
-
+                ListNode tmpPtr = first;
+                ListNode tmpPtrNext;
                 tmpPtr = getNeededPtr(tmpPtr, index);
                 tmpPtrNext = tmpPtr.next;
                 tmpPtrNext.previous = newElement;
@@ -63,9 +61,9 @@ public class MyList {
     public void deleteElement(int index){
         index = getCorrectIndex(index, listLength - 1);
         if(index != 0) {
-            ListObject objPtr = getNeededPtr(first, index);
-            ListObject objDelete = objPtr.next;
-            ListObject objNextPtr = objDelete.next;
+            ListNode objPtr = getNeededPtr(first, index);
+            ListNode objDelete = objPtr.next;
+            ListNode objNextPtr = objDelete.next;
             objDelete = null;
             objPtr.next = objNextPtr;
             objNextPtr.previous = objPtr;
@@ -81,25 +79,22 @@ public class MyList {
         listLength--;
     }
 
-    public void printMyList(){
-        ListObject printObject = first;
-
+    public void printCycleList(){
+        ListNode printObject = first;
         for(int i = 0; i < listLength; i++){
             System.out.println("index: " + i + ", value: " + printObject.value);
             printObject = printObject.next;
         }
     }
 
-    public void reverse(MyList myList){
+    public void reverse(CycleList myList){
         int []array = new int[listLength];
-        ListObject tmpObject = first;
+        ListNode tmpObject = first;
         int tmpListLength = listLength;
-
         for(int i = 0; i < listLength; i++){
             array[i] = tmpObject.value;
             tmpObject = tmpObject.previous;
         }
-
         dropList(myList);
         for(int i = 0; i < tmpListLength; i++){
             myList.addElement(i,array[i]);
@@ -122,9 +117,8 @@ public class MyList {
         return index;
     }
 
-    private ListObject getNeededPtr(ListObject listObject, int index){
+    private ListNode getNeededPtr(ListNode listObject, int index){
         int indexCounter = 0;
-
         if(index != 0) {
             while (indexCounter != index - 1) {
                 listObject = listObject.next;
@@ -137,11 +131,10 @@ public class MyList {
         return listObject;
     }
 
-    private void dropList(MyList myList){
-        int tmpListLength =listLength;
-
+    private void dropList(CycleList cycleList){
+        int tmpListLength = listLength;
         for(int i = 0; i < tmpListLength; i++){
-            myList.deleteElement(0);
+            cycleList.deleteElement(0);
         }
     }
 

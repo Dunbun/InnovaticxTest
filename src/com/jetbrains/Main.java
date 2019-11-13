@@ -3,19 +3,19 @@ package com.jetbrains;
 public class Main {
 
     public static void main(String[] args) {
-        MyList obj = new MyList();
-        obj.addElement(0,2);
-        obj.addElement(1,3);
-        obj.addElement(2,4);
-        obj.addElement(3,5);
-        obj.addElement(-4,20);
-        obj.printMyList();
+        CycleList testCycleList = new CycleList();
+        testCycleList.addElement(0,2);
+        testCycleList.addElement(1,3);
+        testCycleList.addElement(2,4);
+        testCycleList.addElement(3,5);
+        testCycleList.addElement(-4,20);
+        testCycleList.printCycleList();
         System.out.println("____________");
-        obj.deleteElement(-5);
-        obj.printMyList();
+        testCycleList.deleteElement(-5);
+        testCycleList.printCycleList();
         System.out.println("______reverse______");
-        obj.reverse(obj);
-        obj.printMyList();
+        testCycleList.reverse(testCycleList);
+        testCycleList.printCycleList();
 
     }
 }
